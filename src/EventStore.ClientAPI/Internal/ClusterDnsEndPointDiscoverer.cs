@@ -188,7 +188,7 @@ namespace EventStore.ClientAPI.Internal {
 					completed.Set();
 				}, endPoint.EndPoint.GetHost());
 
-			if (!completed.Wait(_gossipTimeout)) {
+			if (!completed.Wait(TimeSpan.FromSeconds(_gossipTimeout.Seconds * 2))) {
 				_log.Error("Timed out trying to get cluster info from [{0}].", endPoint.EndPoint);
 			}
 			return result;
