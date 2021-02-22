@@ -33,8 +33,7 @@ namespace EventStore.ClientAPI.Internal {
 			TimeSpan gossipTimeout,
 			NodePreference nodePreference,
 			bool legacyGossipDiscovery,
-			bool enableVersion5Compability,
-			HttpMessageHandler httpMessageHandler = null) {
+			IHttpClient httpAsyncClient) {
 			Ensure.NotNull(log, "log");
 
 			_log = log;
@@ -44,7 +43,7 @@ namespace EventStore.ClientAPI.Internal {
 			_maxDiscoverAttempts = maxDiscoverAttempts;
 			_gossipSeeds = gossipSeeds;
 			_gossipTimeout = gossipTimeout;
-			_client = new HttpAsyncClient(_gossipTimeout, httpMessageHandler, enableVersion5Compability);
+			_client = httpAsyncClient;
 			_nodePreference = nodePreference;
 			_legacyGossipDiscovery = legacyGossipDiscovery;
 		}
